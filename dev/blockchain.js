@@ -22,3 +22,5 @@ Blockchain.prototype.createNewBlock = function (
 
   return newBlock;
 };
+
+module.exports = Blockchain;
