@@ -14,4 +14,24 @@ bitcoin.createNewTransaction(100, "test-sender1", "test-recipient1");
 
 bitcoin.createNewBlock(8546, "DSJHFWR23WSDF", "3894HFNEJDSDF3");
 
-console.log(bitcoin.chain[2]);
+const previousBlockHash = "JKSDFG2486TREWFI2R42";
+const currentBlockData = [
+  {
+    amount: 24,
+    sender: "SKJDF32048E2EKJGLWR8",
+    recipient: "2QWEE90238E392FEF380",
+  },
+  {
+    amount: 100,
+    sender: "34YTGDYFEWBJCF8WEF3",
+    recipient: "LKAJSDT7384TFG7634",
+  },
+  {
+    amount: 150,
+    sender: "SDFG023OEODKJC86334F",
+    recipient: "KJSGCBEG3YIHWJEFB83",
+  },
+];
+const nonce = 234234;
+
+console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce));
