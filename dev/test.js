@@ -1,19 +1,18 @@
 const Blockchain = require("./blockchain");
 
+// inits an instance of the blockchain constructor
 const bitcoin = new Blockchain();
 
+// tests create block
 bitcoin.createNewBlock(340, "783463VJHDSF3", "DJ0DSF23WE330");
 
+//tests create transaction
 bitcoin.createNewTransaction(20, "test-sender", "test-recipient");
 
+// tests created transaction in the next created block
 bitcoin.createNewBlock(1110, "PLC3240SFSDD", "99JDSF82R323D");
 
-bitcoin.createNewTransaction(65, "test-sender1", "test-recipient1");
-bitcoin.createNewTransaction(76, "test-sender1", "test-recipient1");
-bitcoin.createNewTransaction(100, "test-sender1", "test-recipient1");
-
-bitcoin.createNewBlock(8546, "DSJHFWR23WSDF", "3894HFNEJDSDF3");
-
+// tests hashing block
 const previousBlockHash = "JKSDFG2486TREWFI2R42";
 const currentBlockData = [
   {
@@ -32,6 +31,10 @@ const currentBlockData = [
     recipient: "KJSGCBEG3YIHWJEFB83",
   },
 ];
-const nonce = 234234;
+// const nonce = 234234;
+// console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce));
 
-console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce));
+// tests proof of work
+// console.log(bitcoin.proofOfWork(previousBlockHash, currentBlockData));
+// console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, 110401));
+console.log(bitcoin);
