@@ -51,25 +51,25 @@ app.post("/register-broadcast-node", function (req, res) {
     bitcoin.networkNodes.push(newNodeUrl);
 
   const regNodesPromises = [];
-  bitcoin.networkNodes.forEach((newNodeUrl) => {
+  bitcoin.networkNodes.forEach((networkNodeUrl) => {
     // hit register-node endpoint
     const reqOptions = {
-      uri: newNodeUrl + "/register-node",
+      uri: networkNodeUrl + "/register-node",
       method: "POST",
       body: { newNodeUrl: newNodeUrl },
       json: true,
     };
     regNodesPromises.push(rp(reqOptions));
   });
-  Promise.all(regNodePromises)
+  Promise.all(regNodesPromises)
     .then((data) => {
       const bulkRegisterOptions = {
         uri: newNodeUrl + "/register-nodes-bulk",
         method: "POST",
         body: {
           allNetworkNodes: [...bitcoin.networkNodes, bitcoin.currentNodeUrl],
-          json: true,
         },
+        json: true,
       };
       return rp(bulkRegisterOptions);
     })
