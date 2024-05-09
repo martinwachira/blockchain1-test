@@ -174,7 +174,7 @@ app.get("/consensus", function (req, res) {
   const reqPromises = [];
   bitcoin.networkNodes.forEach((networkNodeUrl) => {
     const reqOptions = {
-      uri: networkNodeUrl + "/bitcoin",
+      uri: networkNodeUrl + "/blockchain",
       method: "GET",
       json: true,
     };
@@ -182,11 +182,11 @@ app.get("/consensus", function (req, res) {
   });
   Promise.all(reqPromises).then((blockchains) => {
     const currentChainLength = bitcoin.chain.length;
-    const maxChainLength = currentChainLength;
-    const newLongestChain = null;
-    const newPendingTransactions = null;
-    blockchains.forEach((Blockchain) => {
-      if (bitcoin.chain.length > maxChainLength) {
+    let maxChainLength = currentChainLength;
+    let newLongestChain = null;
+    let newPendingTransactions = null;
+    blockchains.forEach((blockchain) => {
+      if (blockchain.chain.length > maxChainLength) {
         maxChainLength = blockchain.chain.length;
         newLongestChain = blockchain.chain;
         newPendingTransactions = blockchain.pendingTransactions;
@@ -196,11 +196,11 @@ app.get("/consensus", function (req, res) {
       !newLongestChain ||
       (newLongestChain && !bitcoin.chainIsValid(newLongestChain))
     ) {
-      json.res({
+      res.json({
         note: "Current chain hasn`t been replaced",
         chain: bitcoin.chain,
       });
-    } else if (newLongestChain && bitcoin.chainIsValid(newLongestChain)) {
+    } else {
       bitcoin.chain = newLongestChain;
       bitcoin.pendingTransactions = newPendingTransactions;
       res.json({
